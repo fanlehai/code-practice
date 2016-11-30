@@ -53,7 +53,7 @@ public class RandomSampleDriver extends Configured implements Tool {
 	    FileOutputFormat.setOutputPath(job, new Path(otherArgs[2]));
 	    
 
-		return job.waitForCompletion(true) ? 0 : 1;
+		return job.waitForCompletion(true) ? 1 : 0;
 	}
 
 	private void printUsage() {
