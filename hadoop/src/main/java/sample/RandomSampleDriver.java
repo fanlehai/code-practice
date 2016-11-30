@@ -20,13 +20,19 @@ public class RandomSampleDriver extends Configured implements Tool {
 
 		int res = ToolRunner.run(new Configuration(), new RandomSampleDriver(), args);
 		if (res == 0) {
-			System.err.println("something badlly happened !");
+			System.err.println("something bad happened !");
 		} else {
 			System.out.println("RandomSample is done !");
 		}
 
 	}
 
+	/**
+	   * @param args需要三个参数
+	   * percentage：1-100的整数，表示要取得数据集的百分之多少数据
+	   * in：输入数据路径
+	   * out：输出数据目录
+	   */
 	public int run(String[] args) throws Exception {
 
 		Configuration conf = new Configuration();
