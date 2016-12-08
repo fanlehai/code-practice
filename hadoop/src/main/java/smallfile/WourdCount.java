@@ -1,0 +1,80 @@
+package smallfile;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.conf.Configured;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.SequenceFile.CompressionType;
+import org.apache.hadoop.io.compress.SnappyCodec;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.KeyValueTextInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.LazyOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.SequenceFileOutputFormat;
+import org.apache.hadoop.util.GenericOptionsParser;
+import org.apache.hadoop.util.Tool;
+import org.apache.hadoop.util.ToolRunner;
+
+import serialize.sequencefile.FileMap;
+import serialize.sequencefile.FileWriteCompressDriver;
+
+/*
+ * 计算多个小文件中单词数量
+ * 
+ * yarn jar word.jar smallfile.WourdCount sequence/ sequence/word
+ */
+
+
+
+public class WourdCount extends Configured implements Tool {
+
+	public static void main(String[] args) throws Exception {
+		System.setProperty("hadoop.home.dir", "/Users/liuhai/lib/hadoop/hadoop-2.7.2");
+		int res = ToolRunner.run(new Configuration(), new WourdCount(), args);
+		if (res == 0) {
+			System.err.println("something bad happened !");
+		} else {
+			System.out.println("WourdCount is done !");
+		}
+	}
+
+	public int run(String[] args) throws Exception {
+		Configuration conf = new Configuration();
+		GenericOptionsParser parser = new GenericOptionsParser(conf, args);
+		String[] otherArgs = parser.getRemainingArgs();
+		if (otherArgs.length != 2) {
+			printUsage();
+		}
+
+		FileSystem.get(new Configuration()).delete(new Path(otherArgs[1]), true);
+		
+		Job job = Job.getInstance(conf, "WourdCount");
+		job.setJarByClass(WourdCount.class);
+		
+		job.setMapperClass(WordCountMap.class);
+
+		job.setReducerClass(WordCountReduce.class);
+		job.setOutputKeyClass(Text.class);
+		job.setOutputValueClass(Text.class);
+		
+		//job.setOutputFormatClass(SequenceFileOutputFormat.class);
+		//LazyOutputFormat.setOutputFormatClass(job, SequenceFileOutputFormat.class);
+		
+
+		FileInputFormat.setInputPaths(job, new Path(otherArgs[0]));
+		FileOutputFormat.setOutputPath(job, new Path(otherArgs[1]));
+
+		return job.waitForCompletion(true) ? 1 : 0;
+	}
+	
+	private void printUsage() {
+		System.err.println("Usage: WordCount <in> <out>");
+		ToolRunner.printGenericCommandUsage(System.err);
+		System.exit(2);
+	}
+
+}

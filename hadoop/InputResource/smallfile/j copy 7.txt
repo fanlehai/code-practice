@@ -1,0 +1,3 @@
+Autoconf Tutorial Part-2
+MAR 14TH, 2016
+This is the second post of the autoconf tutorial series. In this post I’ll cover some fundamental units in autoconf and automake, and an example cross platform X11 program that uses the concepts in this post. After reading this post, you should be able to write your own build script for small scope projects.

@@ -1,0 +1,4 @@
+FileLineWritable.java
+
+This file is very simple: store the file name and offset, and override the compareTo method to compare the file name first, then compare the offset.
+

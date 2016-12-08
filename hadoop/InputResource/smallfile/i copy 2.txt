@@ -1,0 +1,7 @@
+Processing small files is an old typical problem in hadoop; On Stack Overflow it suggested people to use CombineFileInputFormat, but I haven’t found a good step-to-step article that teach you how to use it. So, I decided to write one myself.
+
+From Cloudera’s blog:
+
+A small file is one which is significantly smaller than the HDFS block size (default 64MB). If you’re storing small files, then you probably have lots of them (otherwise you wouldn’t turn to Hadoop), and the problem is that HDFS can’t handle lots of files.
+
+In my benchmark, just using a custom CombineFileInputFormat can speedup the program from 3 hours to 23 minutes, and after some further tuning, the same task can be run in 6 minutes!
