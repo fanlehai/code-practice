@@ -10,7 +10,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 public class WordCountMap extends Mapper<LongWritable, Text, Text, Text> {
 
 	public void map(LongWritable ikey, Text ivalue, Context context) throws IOException, InterruptedException {
-		
+
 		StringTokenizer stringTokenizer = new StringTokenizer(ivalue.toString());
 		int nCount = 0;
 		while (stringTokenizer.hasMoreTokens()) {

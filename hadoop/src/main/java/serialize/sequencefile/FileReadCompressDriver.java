@@ -11,7 +11,6 @@ import org.apache.hadoop.mapreduce.lib.input.SequenceFileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.LazyOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.SequenceFileOutputFormat;
-import org.apache.hadoop.util.GenericOptionsParser;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
@@ -37,16 +36,13 @@ public class FileReadCompressDriver extends Configured implements Tool {
 
 	public int run(String[] args) throws Exception {
 		
-		Configuration conf = new Configuration();
-		GenericOptionsParser parser = new GenericOptionsParser(conf, args);
-		String[] otherArgs = parser.getRemainingArgs();
-		if (otherArgs.length != 2) {
+		if (args.length != 2) {
 			printUsage();
 		}
-		
-		FileSystem.get(new Configuration()).delete(new Path(otherArgs[1]), true);
-		
-		Job job = Job.getInstance(conf, "FileReadCompressDriver");
+
+		FileSystem.get(new Configuration()).delete(new Path(args[1]), true);
+		Job job = Job.getInstance(super.getConf(), "FileReadCompressDriver");
+
 		job.setJarByClass(serialize.sequencefile.FileReadCompressDriver.class);
 		job.setInputFormatClass(SequenceFileInputFormat.class);
 		
@@ -60,8 +56,8 @@ public class FileReadCompressDriver extends Configured implements Tool {
 		// 注意此处要用SequenceFileOutputFormat，不然textoutput会乱码，用hdfs dfs -text 查看
 		LazyOutputFormat.setOutputFormatClass(job, SequenceFileOutputFormat.class);
 
-		FileInputFormat.setInputPaths(job, new Path(otherArgs[0]));
-		FileOutputFormat.setOutputPath(job, new Path(otherArgs[1]));
+		FileInputFormat.setInputPaths(job, new Path(args[0]));
+		FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
 		return job.waitForCompletion(true) ? 1 : 0;
 	}

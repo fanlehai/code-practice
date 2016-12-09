@@ -29,7 +29,6 @@ import org.apache.hadoop.util.ReflectionUtils;
  * 2. 用本文件的fix进行修复索引即可
  */
 
-
 public class ReadWriteFix {
 
 	private static final String[] DATA = { "One, two, buckle my shoe", "Three, four, shut the door",

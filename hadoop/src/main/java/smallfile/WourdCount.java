@@ -28,8 +28,6 @@ import serialize.sequencefile.FileWriteCompressDriver;
  * yarn jar word.jar smallfile.WourdCount sequence/ sequence/word
  */
 
-
-
 public class WourdCount extends Configured implements Tool {
 
 	public static void main(String[] args) throws Exception {
@@ -43,34 +41,31 @@ public class WourdCount extends Configured implements Tool {
 	}
 
 	public int run(String[] args) throws Exception {
-		Configuration conf = new Configuration();
-		GenericOptionsParser parser = new GenericOptionsParser(conf, args);
-		String[] otherArgs = parser.getRemainingArgs();
-		if (otherArgs.length != 2) {
+		if (args.length != 2) {
 			printUsage();
 		}
 
-		FileSystem.get(new Configuration()).delete(new Path(otherArgs[1]), true);
-		
-		Job job = Job.getInstance(conf, "WourdCount");
+		FileSystem.get(new Configuration()).delete(new Path(args[1]), true);
+		Job job = Job.getInstance(super.getConf(), "WourdCount");
+
 		job.setJarByClass(WourdCount.class);
-		
+
 		job.setMapperClass(WordCountMap.class);
 
 		job.setReducerClass(WordCountReduce.class);
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(Text.class);
-		
-		//job.setOutputFormatClass(SequenceFileOutputFormat.class);
-		//LazyOutputFormat.setOutputFormatClass(job, SequenceFileOutputFormat.class);
-		
 
-		FileInputFormat.setInputPaths(job, new Path(otherArgs[0]));
-		FileOutputFormat.setOutputPath(job, new Path(otherArgs[1]));
+		// job.setOutputFormatClass(SequenceFileOutputFormat.class);
+		// LazyOutputFormat.setOutputFormatClass(job,
+		// SequenceFileOutputFormat.class);
+
+		FileInputFormat.setInputPaths(job, new Path(args[0]));
+		FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
 		return job.waitForCompletion(true) ? 1 : 0;
 	}
-	
+
 	private void printUsage() {
 		System.err.println("Usage: WordCount <in> <out>");
 		ToolRunner.printGenericCommandUsage(System.err);

@@ -1,30 +1,40 @@
 package minmaxcount;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.conf.Configured;
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.util.Tool;
+import org.apache.hadoop.util.ToolRunner;
 
-import io.*;
-import minmaxcount.MinMaxCountMapper;
-
-public class MinMaxCountDriver {
+public class MinMaxCountDriver extends Configured implements Tool {
 
 	public static void main(String[] args) throws Exception {
-		
-		if (args.length != 2) {
-            System.err.println("Usage: ExampleDriver <in> <out>");
-            System.exit(2);
-        }
-		
-		
+
 		Configuration conf = new Configuration();
-		Job job = Job.getInstance(conf, "MinMaxCount");
+		System.setProperty("hadoop.home.dir", "/Users/liuhai/lib/hadoop/hadoop-2.7.2");
+		int res = ToolRunner.run(conf, new MinMaxCountDriver(), args);
+		if (res == 0) {
+			System.err.println("something bad happened !");
+		} else {
+			System.out.println("MinMaxCount is done !");
+		}
+		System.exit(res);
+	}
+
+	public int run(String[] args) throws Exception {
+		if (args.length != 2) {
+			printUsage();
+		}
+
+		FileSystem.get(new Configuration()).delete(new Path(args[1]), true);
+		Job job = Job.getInstance(super.getConf(), "MinMaxCount");
+
 		job.setJarByClass(MinMaxCountDriver.class);
-		
-		job.setNumReduceTasks(5);
 
 		// 1. input，hadoop的默认input数据格式就是TextInputFormat，所以这里不用设置
 		// 2.设置具体mapper
@@ -44,12 +54,13 @@ public class MinMaxCountDriver {
 		FileInputFormat.addInputPath(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
-		if (!job.waitForCompletion(true)) {
-			System.out.println("MinMaxCount : something badly happened !");
-			return;
-		} else {
-			System.out.println("MinMaxCount is done!");
-		}
+		return job.waitForCompletion(true) ? 1 : 0;
+	}
+
+	private void printUsage() {
+		System.err.println("Usage: MinMaxCount <in> <out>");
+		ToolRunner.printGenericCommandUsage(System.err);
+		System.exit(2);
 	}
 
 }

@@ -19,13 +19,11 @@ public class TotalOrderSort {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void main(String[] args) throws Exception {
-		
+
 		Configuration conf = new Configuration();
-		String[] otherArgs = new GenericOptionsParser(conf, args)
-				.getRemainingArgs();
+		String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
 		if (otherArgs.length != 3) {
-			System.err
-					.println("Usage: TotalOrderSorting <user data> <out> <sample rate>");
+			System.err.println("Usage: TotalOrderSorting <user data> <out> <sample rate>");
 			System.exit(1);
 		}
 
@@ -55,18 +53,18 @@ public class TotalOrderSort {
 		sampleJob.setOutputValueClass(Text.class);
 		// 5. 设置输出文件格式为SequenceFileOutputFormat，采用Gzip压缩
 		sampleJob.setOutputFormatClass(SequenceFileOutputFormat.class);
-	    SequenceFileOutputFormat.setCompressOutput(sampleJob, true);
-	    SequenceFileOutputFormat.setOutputCompressorClass(sampleJob, GzipCodec.class);
-	    SequenceFileOutputFormat.setOutputCompressionType(sampleJob, CompressionType.BLOCK);
-	    // 6. 设置输出文件路径
-	    SequenceFileOutputFormat.setOutputPath(sampleJob, outputStage);
+		SequenceFileOutputFormat.setCompressOutput(sampleJob, true);
+		SequenceFileOutputFormat.setOutputCompressorClass(sampleJob, GzipCodec.class);
+		SequenceFileOutputFormat.setOutputCompressionType(sampleJob, CompressionType.BLOCK);
+		// 6. 设置输出文件路径
+		SequenceFileOutputFormat.setOutputPath(sampleJob, outputStage);
 
 		// 提交第一个任务
 		int code = sampleJob.waitForCompletion(true) ? 0 : 1;
 
 		if (code == 0) {
 			System.err.println("任务1：成功");
-			
+
 			// 开始第二个mapreduce任务：排序
 			Job orderJob = Job.getInstance(conf, "TotalOrderSortingStage2");
 			orderJob.setJarByClass(TotalOrderSort.class);
@@ -75,11 +73,11 @@ public class TotalOrderSort {
 			orderJob.setInputFormatClass(SequenceFileInputFormat.class);
 			// 设置input路径
 			SequenceFileInputFormat.setInputPaths(orderJob, outputStage);
-				
+
 			// 设置分区
 			orderJob.setPartitionerClass(TotalOrderPartitioner.class);
 			// 设置分区文件
-			TotalOrderPartitioner.setPartitionFile(orderJob.getConfiguration(),partitionFile);
+			TotalOrderPartitioner.setPartitionFile(orderJob.getConfiguration(), partitionFile);
 
 			// 设置reduce
 			orderJob.setReducerClass(ValueReduce.class);
@@ -96,12 +94,13 @@ public class TotalOrderSort {
 
 			// 输出文件格式没有设定，就默认为TextOutputFormat，K3与V3的分隔符默认是Tab
 			// 这里设置K3,V3之间的分隔符为空
-			//orderJob.getConfiguration().set("mapreduce.output.textoutputformat.separator", "");
+			// orderJob.getConfiguration().set("mapreduce.output.textoutputformat.separator",
+			// "");
 
 			// 第一个mapreduce任务产生的文件对其key进行随机抽样
 			// sampleRate（采样率）有用户设置;采样最大样本数这里设置为10000;采样最大分区为5
-			InputSampler.writePartitionFile(orderJob,new InputSampler.RandomSampler(sampleRate, 10000, 5));
-						
+			InputSampler.writePartitionFile(orderJob, new InputSampler.RandomSampler(sampleRate, 10000, 5));
+
 			// 提交第二个排序任务
 			code = orderJob.waitForCompletion(true) ? 0 : 2;
 			if (code == 0) {
@@ -109,16 +108,16 @@ public class TotalOrderSort {
 			} else {
 				System.err.println("任务2：失败");
 			}
-		}else {
+		} else {
 			System.err.println("任务1：失败");
 		}
 
 		// 删除中间临时目录
-		//FileSystem.get(new Configuration()).delete(partitionFile, false);
-		//FileSystem.get(new Configuration()).delete(outputStage, true);
+		// FileSystem.get(new Configuration()).delete(partitionFile, false);
+		// FileSystem.get(new Configuration()).delete(outputStage, true);
 
 		System.exit(code);
-		
+
 	}
 
 }

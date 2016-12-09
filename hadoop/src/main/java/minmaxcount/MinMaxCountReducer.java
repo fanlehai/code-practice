@@ -5,9 +5,6 @@ import java.io.IOException;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-import io.*;
-
-
 public class MinMaxCountReducer extends Reducer<Text, MinMaxCountTuple, Text, MinMaxCountTuple> {
 
 	private MinMaxCountTuple result = new MinMaxCountTuple();

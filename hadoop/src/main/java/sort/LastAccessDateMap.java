@@ -3,7 +3,6 @@ package sort;
 import java.io.IOException;
 import java.util.Map;
 
-
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
