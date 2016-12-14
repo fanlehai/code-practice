@@ -101,7 +101,7 @@ public class ReplicatedJoinDriver extends Configured implements Tool {
 	}
 
 	public static void main(String[] args) throws Exception {
-		System.setProperty("hadoop.home.dir", "/Users/liuhai/lib/hadoop/hadoop-2.7.2");
+		
 
 		Configuration conf = new Configuration();
 		int res = ToolRunner.run(conf, new ReplicatedJoinDriver(), args);

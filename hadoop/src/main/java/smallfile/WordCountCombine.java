@@ -21,7 +21,7 @@ import org.apache.hadoop.util.ToolRunner;
 public class WordCountCombine extends Configured implements Tool {
 
 	public static void main(String[] args) throws Exception {
-		System.setProperty("hadoop.home.dir", "/Users/liuhai/lib/hadoop/hadoop-2.7.2");
+		
 		int res = ToolRunner.run(new Configuration(), new WordCountCombine(), args);
 		if (res == 0) {
 			System.err.println("something bad happened !");

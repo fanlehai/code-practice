@@ -24,7 +24,7 @@ public class FileWriteDirver extends Configured implements Tool {
 
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
-		System.setProperty("hadoop.home.dir", "/Users/liuhai/lib/hadoop/hadoop-2.7.2");
+		
 		int res = ToolRunner.run(conf, new FileWriteDirver(), args);
 		if (res == 0) {
 			System.err.println("something bad happened !");

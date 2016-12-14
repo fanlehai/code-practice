@@ -21,7 +21,7 @@ public class LastAccessDateMap extends Mapper<Object, Text, Text, Text> {
 		String date = parsed.get("LastAccessDate");
 		if (date != null) {
 			outkey.set(date);
-			context.write(outkey, value);
+			context.write(outkey, new Text(parsed.get("Id")));
 		}
 	}
 }

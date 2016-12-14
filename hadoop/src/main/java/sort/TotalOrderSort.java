@@ -1,5 +1,7 @@
 package sort;
 
+import java.net.URI;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.FileSystem;
@@ -14,16 +16,21 @@ import org.apache.hadoop.mapreduce.lib.output.SequenceFileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.mapreduce.lib.partition.InputSampler;
 import org.apache.hadoop.mapreduce.lib.partition.TotalOrderPartitioner;
-import org.apache.hadoop.util.GenericOptionsParser;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
+/*
+ * 
+ * 
+ * yarn jar sort.jar sort.TotalOrderSort /stackover/Users.xml totalsort 0.01
+ * 
+ */
 public class TotalOrderSort extends Configured implements Tool {
 
 	public static void main(String[] args) throws Exception {
 
 		Configuration conf = new Configuration();
-		System.setProperty("hadoop.home.dir", "/Users/liuhai/lib/hadoop/hadoop-2.7.2");
+		
 		int res = ToolRunner.run(conf, new TotalOrderSort(), args);
 		if (res == 0) {
 			System.err.println("something bad happened !");
@@ -35,21 +42,19 @@ public class TotalOrderSort extends Configured implements Tool {
 
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public int run(String[] args) throws Exception {
-		Configuration conf = new Configuration();
-		String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
-		if (otherArgs.length != 3) {
+
+		if (args.length != 3) {
 			System.err.println("Usage: TotalOrderSorting <user data> <out> <sample rate>");
 			System.exit(1);
 		}
 
 		// 获取并设置input、output目录
-		Path inputPath = new Path(otherArgs[0]);
-		Path partitionFile = new Path(otherArgs[1] + "_partitions.lst");
-		Path outputStage = new Path(otherArgs[1] + "_staging");
-		Path outputOrder = new Path(otherArgs[1]);
-		double sampleRate = Double.parseDouble(otherArgs[2]);
+		Path inputPath = new Path(args[0]);
+		Path partitionFile = new Path(args[1] + "_partitions.lst");
+		Path outputStage = new Path(args[1] + "_staging");
+		Path outputOrder = new Path(args[1]);
+		double sampleRate = Double.parseDouble(args[2]);
 
 		// 删除中间目录
 		FileSystem.get(new Configuration()).delete(outputOrder, true);
@@ -57,7 +62,7 @@ public class TotalOrderSort extends Configured implements Tool {
 		FileSystem.get(new Configuration()).delete(partitionFile, true);
 
 		// 开始第一个mapreduce任务：待排序文件分区
-		Job sampleJob = Job.getInstance(conf, "TotalOrderSortingStage1");
+		Job sampleJob = Job.getInstance(getConf(), "TotalOrderSortingStage1");
 		sampleJob.setJarByClass(TotalOrderSort.class);
 		// 1. 设置输入文件路径（待排序文件）
 		TextInputFormat.setInputPaths(sampleJob, inputPath);
@@ -77,13 +82,13 @@ public class TotalOrderSort extends Configured implements Tool {
 		SequenceFileOutputFormat.setOutputPath(sampleJob, outputStage);
 
 		// 提交第一个任务
-		int code = sampleJob.waitForCompletion(true) ? 0 : 1;
+		int code = sampleJob.waitForCompletion(true) ? 1 : 0;
 
-		if (code == 0) {
+		if (code == 1) {
 			System.err.println("任务1：成功");
 
 			// 开始第二个mapreduce任务：排序
-			Job orderJob = Job.getInstance(conf, "TotalOrderSortingStage2");
+			Job orderJob = Job.getInstance(getConf(), "TotalOrderSortingStage2");
 			orderJob.setJarByClass(TotalOrderSort.class);
 
 			// 设置input文件类型(K1,V1)
@@ -116,14 +121,16 @@ public class TotalOrderSort extends Configured implements Tool {
 
 			// 第一个mapreduce任务产生的文件对其key进行随机抽样
 			// sampleRate（采样率）有用户设置;采样最大样本数这里设置为10000;采样最大分区为5
-			InputSampler.writePartitionFile(orderJob, new InputSampler.RandomSampler(sampleRate, 10000, 5));
+			InputSampler.Sampler<Text, Text> sampler = new InputSampler.RandomSampler<Text,Text>(sampleRate, 10000, 5);
+			InputSampler.writePartitionFile(orderJob, sampler);
 
+			orderJob.addCacheFile(new URI(partitionFile.toString()));
 			// 提交第二个排序任务
-			code = orderJob.waitForCompletion(true) ? 0 : 2;
+			code = orderJob.waitForCompletion(true) ? 1 : 0;
 			if (code == 0) {
-				System.err.println("任务2：成功");
-			} else {
 				System.err.println("任务2：失败");
+			} else {
+				System.err.println("任务2：成功");
 			}
 		} else {
 			System.err.println("任务1：失败");
