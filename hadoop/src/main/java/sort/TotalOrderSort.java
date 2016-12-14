@@ -1,6 +1,7 @@
 package sort;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.SequenceFile.CompressionType;
@@ -14,12 +15,28 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.mapreduce.lib.partition.InputSampler;
 import org.apache.hadoop.mapreduce.lib.partition.TotalOrderPartitioner;
 import org.apache.hadoop.util.GenericOptionsParser;
+import org.apache.hadoop.util.Tool;
+import org.apache.hadoop.util.ToolRunner;
 
-public class TotalOrderSort {
+public class TotalOrderSort extends Configured implements Tool {
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void main(String[] args) throws Exception {
 
+		Configuration conf = new Configuration();
+		System.setProperty("hadoop.home.dir", "/Users/liuhai/lib/hadoop/hadoop-2.7.2");
+		int res = ToolRunner.run(conf, new TotalOrderSort(), args);
+		if (res == 0) {
+			System.err.println("something bad happened !");
+		} else {
+			System.out.println("TotalOrderSort is done !");
+		}
+
+		System.exit(res);
+
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public int run(String[] args) throws Exception {
 		Configuration conf = new Configuration();
 		String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
 		if (otherArgs.length != 3) {
@@ -116,8 +133,6 @@ public class TotalOrderSort {
 		// FileSystem.get(new Configuration()).delete(partitionFile, false);
 		// FileSystem.get(new Configuration()).delete(outputStage, true);
 
-		System.exit(code);
-
+		return code;
 	}
-
 }
