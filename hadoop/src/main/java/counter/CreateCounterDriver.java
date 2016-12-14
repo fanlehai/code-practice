@@ -5,6 +5,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -15,6 +16,8 @@ import org.apache.hadoop.util.ToolRunner;
 /*
  * 【问题】：获取用户的Location，计算多少用户填写了Location字段
  * 
+ *  运行参数：
+ * yarn jar count.jar counter.CreateCounterDriver stackover-users-sample/part-r-00000 countLocation
  * 【测试数据】：StackOver的Users.xml，格式如下：
  * <?xml version="1.0" encoding="utf-8"?>
 	<users>
@@ -77,12 +80,13 @@ public class CreateCounterDriver extends Configured implements Tool {
 		Job job = Job.getInstance(super.getConf(), "CreateCounter");
 
 		job.setJarByClass(counter.CreateCounterDriver.class);
+		
 		job.setMapperClass(CreateCounterMap.class);
-
-		job.setReducerClass(CreateCounterReduce.class);
+		
+		job.setNumReduceTasks(0);
 
 		job.setOutputKeyClass(Text.class);
-		job.setOutputValueClass(Text.class);
+		job.setOutputValueClass(NullWritable.class);
 
 		FileInputFormat.setInputPaths(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));

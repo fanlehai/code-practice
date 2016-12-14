@@ -4,12 +4,13 @@ import java.io.IOException;
 import java.util.Map;
 
 import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 import utils.*;
 
-public class CreateCounterMap extends Mapper<LongWritable, Text, Text, Text> {
+public class CreateCounterMap extends Mapper<LongWritable, Text, Text, NullWritable> {
 
 	public static final String COUNT_LOCATION_STRING = "CountLocationString";
 
@@ -37,13 +38,14 @@ public class CreateCounterMap extends Mapper<LongWritable, Text, Text, Text> {
 			context.getCounter(Count.HasLocation).increment(1);
 			// 字符串计数器
 			context.getCounter(COUNT_LOCATION_STRING, "Location").increment(1);;
-			
+			context.write(new Text(location), NullWritable.get());
 		} else {
 			// 枚举型计数器
 			context.getCounter(Count.NullOrEmpty).increment(1);
 			// 字符串计数器
 			context.getCounter(COUNT_LOCATION_STRING, "NullOrEmpty").increment(1);
 		}
+		
 	}
 
 }

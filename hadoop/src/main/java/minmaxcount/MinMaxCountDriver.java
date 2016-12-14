@@ -11,6 +11,12 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
+/*
+ * 
+ * 运行参数：-D mapreduce.job.reduces=5 /stackover/Comments.xml /user/liuhai/stackover
+ * 
+ * 
+ */
 public class MinMaxCountDriver extends Configured implements Tool {
 
 	public static void main(String[] args) throws Exception {
