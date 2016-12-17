@@ -1,6 +1,9 @@
 package configure;
 
+import java.util.Enumeration;
 import java.util.Map.Entry;
+import java.util.Properties;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.util.Tool;
@@ -22,6 +25,16 @@ public class PrintConfig extends Configured implements Tool {
 	}
 
 	public static void main(String[] args) throws Exception {
+		
+		Properties props = System.getProperties();
+		 Enumeration<?> e = props.propertyNames();  
+         while (e.hasMoreElements()) {  
+             String key = (String) e.nextElement();  
+             String value = props.getProperty(key);  
+             System.out.println("Key:" + key + ",Value:" + value);  
+         }  
+		
+		
 		int exitCode = ToolRunner.run(new PrintConfig(), args);
 		System.exit(exitCode);
 	}

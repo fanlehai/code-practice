@@ -1,5 +1,8 @@
 package serialize.sequencefile;
 
+import java.util.Enumeration;
+import java.util.Properties;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
@@ -20,8 +23,8 @@ import org.apache.hadoop.fs.FileSystem;
  * 通过（TextInputFormat）读取文件，然后输出到sequencefile中，并且对sequencefile进行snappy压缩。
  * 本地hdfs使用：
  * 编译此文件并且打包成jar : write.jar
- * yarn jar write.jar serialize.sequencefile.FileWriteCompressDriver sequence sequence/out
- * 
+ * yarn jar write.jar serialize.sequencefile.FileWriteCompressDriver sequence sequenceout
+ * yarn jar write.jar serialize.sequencefile.FileWriteCompressDriver sequence/a.txt sequenceout
  * 集群hdfs使用：
  * 需要输入正确的输入和输出路径
  */
@@ -36,6 +39,15 @@ public class FileWriteCompressDriver extends Configured implements Tool {
 		} else {
 			System.out.println("SequenceFileWrite is done !");
 		}
+		
+		Properties props = System.getProperties();
+		 Enumeration<?> e = props.propertyNames();  
+       while (e.hasMoreElements()) {  
+           String key = (String) e.nextElement();  
+           String value = props.getProperty(key);  
+           System.out.println("Key:" + key + ",Value:" + value);  
+       }  
+       
 	}
 
 	public int run(String[] args) throws Exception {
