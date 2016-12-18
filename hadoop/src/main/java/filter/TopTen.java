@@ -109,7 +109,6 @@ public class TopTen extends Configured implements Tool {
 		System.exit(2);
 	}
 
-	@Override
 	public int run(String[] args) throws Exception {
 
 		if (args.length != 2) {

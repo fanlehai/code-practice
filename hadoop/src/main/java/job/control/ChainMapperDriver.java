@@ -196,7 +196,6 @@ public class ChainMapperDriver extends Configured implements Tool {
 
 	}
 
-	@Override
 	public int run(String[] args) throws Exception {
 		if (args.length != 3) {
 			System.err.println("Usage: ChainMapperReducer <posts> <users> <out>");

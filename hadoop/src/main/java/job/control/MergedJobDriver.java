@@ -209,19 +209,16 @@ public class MergedJobDriver {
 			return text;
 		}
 
-		@Override
 		public void readFields(DataInput in) throws IOException {
 			tag = in.readUTF();
 			text.readFields(in);
 		}
 
-		@Override
 		public void write(DataOutput out) throws IOException {
 			out.writeUTF(tag);
 			text.write(out);
 		}
 
-		@Override
 		public int compareTo(TaggedText obj) {
 			int compare = tag.compareTo(obj.getTag());
 			if (compare == 0) {
