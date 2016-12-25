@@ -10,7 +10,6 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-import minmaxcount.MinMaxCountDriver;
 
 import java.io.IOException;
 
@@ -55,10 +54,6 @@ public final class SimpleXmlOutputMapReduce extends Configured implements Tool {
 			System.out.println("SimpleXmlOutputMapReduce is done !");
 		}
 		System.exit(res);
-	}
-
-	public static void runJob(String input, String output) throws Exception {
-
 	}
 
 	@Override

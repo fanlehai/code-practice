@@ -5,6 +5,8 @@ import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.util.ReflectionUtils;
 
+import utils.HadoopCompat;
+
 import java.io.IOException;
 import java.util.*;
 
@@ -78,8 +80,7 @@ public class ReservoirSamplerInputFormat<K extends Writable, V extends Writable>
 		return getInputFormat(HadoopCompat.getConfiguration(context)).getSplits(context);
 	}
 
-	
-	@SuppressWarnings({"unchecked" })
+	@SuppressWarnings({ "unchecked" })
 	public RecordReader createRecordReader(InputSplit split, TaskAttemptContext context)
 			throws IOException, InterruptedException {
 

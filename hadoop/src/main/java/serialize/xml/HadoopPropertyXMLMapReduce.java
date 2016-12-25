@@ -96,8 +96,8 @@ public final class HadoopPropertyXMLMapReduce extends Configured implements Tool
 		FileInputFormat.setInputPaths(job, new Path(input));
 		Path outPath = new Path(output);
 		FileOutputFormat.setOutputPath(job, outPath);
-		outPath.getFileSystem(conf).delete(outPath, true);
+		outPath.getFileSystem(getConf()).delete(outPath, true);
 
-		job.waitForCompletion(true);
+		return job.waitForCompletion(true) ? 0 : 1;
 	}
 }
