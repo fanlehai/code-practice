@@ -1,0 +1,8 @@
+package com.fanlehai.hadoop.serialize.protocolbuffer;
+
+option java_outer_classname = "NameAge";
+
+message Age {
+  optional string name = 1;
+  optional int32 age = 2;
+}
