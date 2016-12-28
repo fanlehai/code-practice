@@ -1,3 +1,4 @@
+package com.fanlehai.hadoop.allrun;
 
 //import org.apache.hadoop.util.ProgramDriver;
 import com.fanlehai.hadoop.utils.*;
