@@ -47,11 +47,11 @@ import com.twitter.elephantbird.mapreduce.output.LzoProtobufBlockOutputFormat;
 
 /**
  * -Dproto.test=lzoOut : takes text files with name and age on each line as
- * input and writes to lzo file with Protobuf serilized data. 
+ * input and writes to lzo file with Protobuf serilized data.
  * 
- * -Dproto.test=lzoIn : does the reverse. 
+ * -Dproto.test=lzoIn : does the reverse.
  *
- * -Dproto.test.format=Block (or B64Line) to test different formats. 
+ * -Dproto.test.format=Block (or B64Line) to test different formats.
  */
 
 public class ProtobufMRExample extends Configured implements Tool {
@@ -65,7 +65,8 @@ public class ProtobufMRExample extends Configured implements Tool {
 
 		@Override
 		protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-			//StringTokenizer line = new StringTokenizer(value.toString(), "\t\r\n");
+			// StringTokenizer line = new StringTokenizer(value.toString(),
+			// "\t\r\n");
 			StringTokenizer line = new StringTokenizer(value.toString(), " ");
 			String name;
 
@@ -187,7 +188,7 @@ public class ProtobufMRExample extends Configured implements Tool {
 
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
-		
+
 		int res = ToolRunner.run(conf, new ProtobufMRExample(), args);
 		if (res != 0) {
 			System.err.println("something bad happened !");
@@ -195,9 +196,7 @@ public class ProtobufMRExample extends Configured implements Tool {
 			System.out.println("ProtobufMRExample is done !");
 		}
 		System.exit(res);
-	
 
-		
 	}
 
 	@Override
@@ -208,27 +207,26 @@ public class ProtobufMRExample extends Configured implements Tool {
 			ToolRunner.printGenericCommandUsage(System.err);
 			System.exit(2);
 		}
-		
+
 		FileSystem.get(getConf()).delete(new Path(args[1]), true);
-		
+
 		String test = getConf().get("proto.test", "lzoIn");
 
 		System.out.println("**************************");
 		System.out.println(test);
 		System.out.println("**************************");
 		int ret = 0;
-		if (test.equals("lzoIn")){
+		if (test.equals("lzoIn")) {
 			ret = runner.runLzoToText(args, getConf());
-		}else if (test.equals("lzoOut")){
+		} else if (test.equals("lzoOut")) {
 			ret = runner.runTextToLzo(args, getConf());
-		}else if (test.equals("sort")){
+		} else if (test.equals("sort")) {
 			ret = runner.runSorter(args, getConf());
-		}else {
-			throw new Exception("proto.test  is null"); 
+		} else {
+			throw new Exception("proto.test  is null");
 		}
-		
-		
+
 		return ret;
-		
+
 	}
 }
