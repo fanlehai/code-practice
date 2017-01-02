@@ -1,4 +1,4 @@
-package com.fanlehai.Java;
+package com.fanlehai.java;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.apache.hadoop.io.Text;
 
 public class MapExample {
 	
