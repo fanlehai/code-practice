@@ -1,4 +1,4 @@
-package com.fanlehai.Java;
+package com.fanlehai.java;
 
 /**
  * Hello world!
