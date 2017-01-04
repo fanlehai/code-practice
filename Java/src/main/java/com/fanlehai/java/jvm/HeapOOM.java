@@ -9,6 +9,7 @@ import java.util.List;
  * 
  * AM Args : -verbose:gc -Xms20M -Xmx20M -Xmn10M -XX:+PrintGCDetails -XX:SurvivorRatio=8 -XX:+HeapDumpOnOutOfMemoryError
  * 
+ * -verbose:gc  -XX:SurvivorRatio=8  -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps  -Xms20M -Xmx20M -Xmn10M -XX:+HeapDumpOnOutOfMemoryError
  */
 
 
