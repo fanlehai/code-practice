@@ -1,4 +1,4 @@
-package java.map;
+package com.fanlehai.java.map;
 
 import java.util.ArrayList;
 import java.util.HashMap;
