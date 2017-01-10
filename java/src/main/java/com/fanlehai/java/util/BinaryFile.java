@@ -1,4 +1,3 @@
-//: net/mindview/util/BinaryFile.java
 // Utility for reading files in binary form.
 package com.fanlehai.java.util;
 
