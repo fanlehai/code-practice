@@ -72,7 +72,7 @@ public class Callbacks {
 		caller1.go();
 		caller1.go();
 		caller2.go();
-//		caller2.go();
+		caller2.go();
 	}
 } 
 /* Output:
