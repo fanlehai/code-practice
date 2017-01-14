@@ -1,4 +1,3 @@
-//: net/mindview/util/Sets.java
 package com.fanlehai.java.util;
 
 import java.util.*;

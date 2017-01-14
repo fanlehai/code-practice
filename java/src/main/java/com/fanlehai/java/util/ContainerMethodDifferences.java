@@ -1,4 +1,3 @@
-//: net/mindview/util/ContainerMethodDifferences.java
 package com.fanlehai.java.util;
 
 import java.lang.reflect.*;
