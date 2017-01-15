@@ -18,11 +18,11 @@ class TimeStampedImp implements TimeStamped {
 	}
 }
 
-interface SerialNumbered {
+interface SerialNumbered1 {
 	long getSerialNumber();
 }
 
-class SerialNumberedImp implements SerialNumbered {
+class SerialNumberedImp implements SerialNumbered1 {
 	private static long counter = 1;
 	private final long serialNumber = counter++;
 
@@ -31,13 +31,13 @@ class SerialNumberedImp implements SerialNumbered {
 	}
 }
 
-interface Basic {
+interface Basic1 {
 	public void set(String val);
 
 	public String get();
 }
 
-class BasicImp implements Basic {
+class BasicImp implements Basic1 {
 	private String value;
 
 	public void set(String val) {
@@ -49,9 +49,9 @@ class BasicImp implements Basic {
 	}
 }
 
-class Mixin extends BasicImp implements TimeStamped, SerialNumbered {
+class Mixin extends BasicImp implements TimeStamped, SerialNumbered1 {
 	private TimeStamped timeStamp = new TimeStampedImp();
-	private SerialNumbered serialNumber = new SerialNumberedImp();
+	private SerialNumbered1 serialNumber = new SerialNumberedImp();
 
 	public long getStamp() {
 		return timeStamp.getStamp();
@@ -70,9 +70,8 @@ public class Mixins {
 		System.out.println(mixin1.get() + " " + mixin1.getStamp() + " " + mixin1.getSerialNumber());
 		System.out.println(mixin2.get() + " " + mixin2.getStamp() + " " + mixin2.getSerialNumber());
 	}
-} 
+}
 
-/* Output: (Sample)
-test string 1 1132437151359 1
-test string 2 1132437151359 2
-*///:~
+/*
+ * Output: (Sample) test string 1 1132437151359 1 test string 2 1132437151359 2
+ */// :~

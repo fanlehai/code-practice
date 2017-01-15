@@ -1,6 +1,10 @@
 package com.fanlehai.java.generics;
 // Exploring the meaning of wildcards.
 
+import java.util.Collection;
+
+import org.apache.tools.ant.taskdefs.Get;
+
 public class Wildcards {
 	// Raw argument:
 	static void rawArgs(Holder holder, Object arg) {
@@ -57,6 +61,16 @@ public class Wildcards {
 		// OK, but type information has been lost:
 		Object obj = holder.get();
 	}
+	
+	static <T> T wildSupertypeEx(Holder<? super T> holder, T arg) {
+		holder.set(arg);
+		// T t = holder.get(); // Error:
+		// Incompatible types: found Object, required T
+
+		// OK, but type information has been lost:
+		//Object obj = holder.get();
+		return (T)holder.get();
+	}
 
 	public static void main(String[] args) {
 		Holder raw = new Holder<Long>();
@@ -77,48 +91,51 @@ public class Wildcards {
 		unboundedArg(unbounded, lng);
 		unboundedArg(bounded, lng);
 
-		// Object r1 = exact1(raw); // Warnings:
-		// Unchecked conversion from Holder to Holder<T>
-		// Unchecked method invocation: exact1(Holder<T>)
-		// is applied to (Holder)
+		// Warnings: Unchecked conversion from Holder to Holder<T>
+		// Object r1 = exact1(raw); 
+		
+		// Unchecked method invocation: exact1(Holder<T>) is applied to (Holder)
 		Long r2 = exact1(qualified);
 		Object r3 = exact1(unbounded); // Must return Object
 		Long r4 = exact1(bounded);
 
-		// Long r5 = exact2(raw, lng); // Warnings:
-		// Unchecked conversion from Holder to Holder<Long>
-		// Unchecked method invocation: exact2(Holder<T>,T)
-		// is applied to (Holder,Long)
+		// Warnings: Unchecked conversion from Holder to Holder<Long>
+		// Long r5 = exact2(raw, lng); 
+		
+		// Unchecked method invocation: exact2(Holder<T>,T) is applied to (Holder,Long)
 		Long r6 = exact2(qualified, lng);
-		// Long r7 = exact2(unbounded, lng); // Error:
-		// exact2(Holder<T>,T) cannot be applied to
-		// (Holder<capture of ?>,Long)
-		// Long r8 = exact2(bounded, lng); // Error:
-		// exact2(Holder<T>,T) cannot be applied
-		// to (Holder<capture of ? extends Long>,Long)
+		
+		// Error: exact2(Holder<T>,T) cannot be applied to (Holder<capture of ?>,Long)
+		// Long r7 = exact2(unbounded, lng); 
+		
+		// Error: exact2(Holder<T>,T) cannot be applied to (Holder<capture of ? extends Long>,Long)
+		// Long r8 = exact2(bounded, lng); 
 
-		// Long r9 = wildSubtype(raw, lng); // Warnings:
-		// Unchecked conversion from Holder
-		// to Holder<? extends Long>
-		// Unchecked method invocation:
-		// wildSubtype(Holder<? extends T>,T) is
-		// applied to (Holder,Long)
+		// Warnings: Unchecked conversion from Holder to Holder<? extends Long>
+		// Long r9 = wildSubtype(raw, lng); 
+		
+		// Unchecked method invocation: wildSubtype(Holder<? extends T>,T) is applied to (Holder,Long)
 		Long r10 = wildSubtype(qualified, lng);
 		// OK, but can only return Object:
 		Object r11 = wildSubtype(unbounded, lng);
 		Long r12 = wildSubtype(bounded, lng);
 
-		// wildSupertype(raw, lng); // Warnings:
-		// Unchecked conversion from Holder to Holder<? super Long>
-		// Unchecked method invocation:
-		// wildSupertype(Holder<? super T>,T)
-		// is applied to (Holder,Long)
+		
+		
+		
+		// Warnings: Unchecked conversion from Holder to Holder<? super Long>
+		// wildSupertype(raw, lng); 
+		
+		// Unchecked method invocation: wildSupertype(Holder<? super T>,T) is applied to (Holder,Long)
 		wildSupertype(qualified, lng);
-		// wildSupertype(unbounded, lng); // Error:
-		// wildSupertype(Holder<? super T>,T) cannot be
-		// applied to (Holder<capture of ?>,Long)
-		// wildSupertype(bounded, lng); // Error:
-		// wildSupertype(Holder<? super T>,T) cannot be
-		// applied to (Holder<capture of ? extends Long>,Long)
+		
+		// Error: wildSupertype(Holder<? super T>,T) cannot be applied to (Holder<capture of ?>,Long)
+		// wildSupertype(unbounded, lng);
+		
+		// Error: wildSupertype(Holder<? super T>,T) cannot be applied to (Holder<capture of ? extends Long>,Long)
+		// wildSupertype(bounded, lng); 
+		
+		
+		System.out.println(wildSupertypeEx(qualified,lng));
 	}
 } ///:~

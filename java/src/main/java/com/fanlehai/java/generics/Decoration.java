@@ -30,10 +30,10 @@ class Decorator extends Basic {
 	}
 }
 
-class TimeStamped extends Decorator {
+class TimeStamped1 extends Decorator {
 	private final long timeStamp;
 
-	public TimeStamped(Basic basic) {
+	public TimeStamped1(Basic basic) {
 		super(basic);
 		timeStamp = new Date().getTime();
 	}
@@ -58,11 +58,11 @@ class SerialNumbered extends Decorator {
 
 public class Decoration {
 	public static void main(String[] args) {
-		TimeStamped t = new TimeStamped(new Basic());
-		TimeStamped t2 = new TimeStamped(new SerialNumbered(new Basic()));
+		TimeStamped1 t = new TimeStamped1(new Basic());
+		TimeStamped1 t2 = new TimeStamped1(new SerialNumbered(new Basic()));
 		// ! t2.getSerialNumber(); // Not available
 		SerialNumbered s = new SerialNumbered(new Basic());
-		SerialNumbered s2 = new SerialNumbered(new TimeStamped(new Basic()));
+		SerialNumbered s2 = new SerialNumbered(new TimeStamped1(new Basic()));
 		// ! s2.getStamp(); // Not available
 	}
 } /// :~
