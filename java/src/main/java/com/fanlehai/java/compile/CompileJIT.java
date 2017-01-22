@@ -2,7 +2,9 @@ package com.fanlehai.java.compile;
 
 
 /*
- * -XX:+PrintCompilation
+ * vm参数：
+ * -XX:+UnlockDiagnosticVMOptions -XX:+PrintCompilation -XX:+PrintInlining
+ * 
  * 要求虚拟机在即是编译时把编译成本地代码的方法名称打印出来：-XX:+PrintCompilation
  * 要求虚拟机输出方法内联信息；-XX:+PrintInlining
  * 
