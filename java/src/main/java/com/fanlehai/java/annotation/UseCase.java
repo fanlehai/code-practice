@@ -1,6 +1,5 @@
 package com.fanlehai.java.annotation;
 
-//: annotations/UseCase.java
 import java.lang.annotation.*;
 
 @Target(ElementType.METHOD)

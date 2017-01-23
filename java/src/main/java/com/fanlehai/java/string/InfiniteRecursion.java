@@ -6,7 +6,7 @@ import java.util.*;
 
 public class InfiniteRecursion {
 	public String toString() {
-		// 这里的this也会调用他此toStrng方法，导致递归循环栈溢出
+		// 这里的this也会调用此toStrng方法，导致递归循环栈溢出
 		// 把this换成super.toString即可；
 		return " InfiniteRecursion address: " + this + "\n";
 	}
