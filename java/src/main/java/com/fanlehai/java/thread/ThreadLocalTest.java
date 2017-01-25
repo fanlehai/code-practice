@@ -5,10 +5,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-
 //Automatically giving each thread its own storage.
-
-
 
 class Accessor implements Runnable {
 	private final int id;
