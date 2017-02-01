@@ -37,4 +37,16 @@ public class ClassUnderTest {
 		return System.getProperty(str);
 	}
 
+	public boolean order1() {
+		return true;
+	}
+
+	public boolean order2() {
+		return true;
+	}
+
+	public boolean order3() {
+		return true;
+	}
+
 }
