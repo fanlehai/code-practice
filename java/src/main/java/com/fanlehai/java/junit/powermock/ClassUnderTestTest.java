@@ -29,7 +29,7 @@ public class ClassUnderTestTest {
 	 */
 	@Test
 	public void testCallArgumentInstance() {
-		// 用mock创建一个File的模拟对象，拥有File的所有功能
+		// 用mock创建一个File的模拟对象，拥有File的所有功能，但是默认不执行File的真实方法
 		File file = PowerMockito.mock(File.class);
 		ClassUnderTest underTest = new ClassUnderTest();
 		// 为file.exists()方法进行stub，就是设定此方法固定返回值
@@ -92,7 +92,7 @@ public class ClassUnderTestTest {
 		PowerMockito.when(underTest.callPrivateMethod()).thenCallRealMethod();
 		PowerMockito.when(underTest, "isExist").thenReturn(true);
 		Assert.assertTrue(underTest.callPrivateMethod());
-		
+
 		PowerMockito.verifyPrivate(underTest).invoke("isExist");
 	}
 
@@ -124,21 +124,20 @@ public class ClassUnderTestTest {
 		// 测试静态方法是否被调用
 		PowerMockito.mockStatic(ClassDependency.class);
 		ClassDependency.isVerify();
-		ClassDependency.isVerify();
+		ClassDependency.isExist();
 		// PowerMockito.verifyStatic();// 默认是验证方法被调用1次
 		PowerMockito.verifyStatic(Mockito.times(2)); // 被调用2次
 		ClassDependency.isVerify();
-		
-		
+
 		// 验证
-		Map mock = Mockito.mock( Map.class );  
-		PowerMockito.when( mock.get( "city" ) ).thenReturn( "广州" );  
-		// 关注参数有否传入  
-		Mockito.verify(mock).get( Matchers.eq( "city" ) );  
+		Map mock = Mockito.mock(Map.class);
+		PowerMockito.when(mock.get("city")).thenReturn("广州");
+		// 关注参数有否传入
+		Mockito.verify(mock).get(Matchers.eq("city"));
 		// 关注调用的次数,次数还有下面方法可以使用
 		// Mockito.never();Mockito.atLeast(minNumberOfInvocations);Mockito.atMost(maxNumberOfInvocations);
-		Mockito.verify(mock, Mockito.times( 2 )).get("city"); 
-		
+		Mockito.verify(mock, Mockito.times(2)).get("city");
+
 	}
 
 	/*
@@ -264,17 +263,17 @@ public class ClassUnderTestTest {
 		PowerMockito.doNothing().when(spy).createEmployee(employeeMock);
 		spy.saveEmployee(employeeMock);
 		Mockito.verify(spy).createEmployee(employeeMock);
-		
-		List<String> list = new LinkedList<String>();  
-		List<String> spyList = PowerMockito.spy(list);  
-		  
-		//Impossible: real method is called so spy.get(0) throws IndexOutOfBoundsException (the list is yet empty)  
-		//when(spyList.get(0)).thenReturn("foo");  
-		  
-		//You have to use doReturn() for stubbing  
-		PowerMockito.doReturn("foo").when(spyList).get(0);  
+
+		List<String> list = new LinkedList<String>();
+		List<String> spyList = PowerMockito.spy(list);
+
+		// Impossible: real method is called so spy.get(0) throws
+		// IndexOutOfBoundsException (the list is yet empty)
+		// when(spyList.get(0)).thenReturn("foo");
+
+		// You have to use doReturn() for stubbing
+		PowerMockito.doReturn("foo").when(spyList).get(0);
 		assertEquals("foo", spyList.get(0));
-		
-		
+
 	}
 }
