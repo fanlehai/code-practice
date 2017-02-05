@@ -22,4 +22,4 @@ public class DaemonFromFactory implements Runnable {
 		System.out.println("All daemons started");
 		TimeUnit.MILLISECONDS.sleep(500); // Run for a while
 	}
-} /* (Execute to see output) */// :~
+}

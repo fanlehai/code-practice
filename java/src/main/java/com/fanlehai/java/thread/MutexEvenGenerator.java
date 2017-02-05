@@ -22,6 +22,6 @@ public class MutexEvenGenerator extends IntGenerator {
 	}
 
 	public static void main(String[] args) {
-		EvenChecker.test(new MutexEvenGenerator(), 1);
+		EvenChecker.test(new MutexEvenGenerator(), 10);
 	}
 } /// :~

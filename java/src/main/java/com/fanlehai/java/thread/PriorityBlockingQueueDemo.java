@@ -1,6 +1,7 @@
 package com.fanlehai.java.thread;
 
 import java.util.concurrent.*;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.*;
 
 class PrioritizedTask implements Runnable, Comparable<PrioritizedTask> {

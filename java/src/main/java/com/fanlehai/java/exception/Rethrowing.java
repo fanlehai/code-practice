@@ -53,6 +53,7 @@ java.lang.Exception: thrown from f()
         at Rethrowing.f(Rethrowing.java:7)
         at Rethrowing.g(Rethrowing.java:11)
         at Rethrowing.main(Rethrowing.java:29)
+        
 originating the exception in f()
 Inside h(),e.printStackTrace()
 java.lang.Exception: thrown from f()

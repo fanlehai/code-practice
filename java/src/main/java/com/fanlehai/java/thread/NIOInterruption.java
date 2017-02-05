@@ -38,21 +38,21 @@ public class NIOInterruption {
 		SocketChannel sc2 = SocketChannel.open(isa);
 		
 		// 方法一：通过分开启动两个线程
-//		Future<?> f = exec.submit(new NIOBlocked(sc1));
-//		exec.execute(new NIOBlocked(sc2));
-//		exec.shutdown();
-//		TimeUnit.SECONDS.sleep(1);
-//		// Produce an interrupt via cancel:
-//		f.cancel(true);
-//		TimeUnit.SECONDS.sleep(1);
-//		// Release the block by closing the channel:
-//		sc2.close();
+		Future<?> f = exec.submit(new NIOBlocked(sc1));
+		exec.execute(new NIOBlocked(sc2));
+		exec.shutdown();
+		TimeUnit.SECONDS.sleep(1);
+		// Produce an interrupt via cancel:
+		f.cancel(true);
+		TimeUnit.SECONDS.sleep(1);
+		// Release the block by closing the channel:
+		sc2.close();
 		
 		// 方法二：一起启动管理
-		exec.execute(new NIOBlocked(sc1));
-		exec.execute(new NIOBlocked(sc2));
-		TimeUnit.SECONDS.sleep(1);
-		exec.shutdownNow();
+//		exec.execute(new NIOBlocked(sc1));
+//		exec.execute(new NIOBlocked(sc2));
+//		TimeUnit.SECONDS.sleep(1);
+//		exec.shutdownNow();
 	}
 } /*
 	 * Output: (Sample) 

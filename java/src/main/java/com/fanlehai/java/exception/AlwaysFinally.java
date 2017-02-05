@@ -21,7 +21,7 @@ public class AlwaysFinally {
 			System.out.println("finally in 1st try block");
 		}
 	}
-} 
+}
 /* Output:
 Entering first try block
 Entering second try block

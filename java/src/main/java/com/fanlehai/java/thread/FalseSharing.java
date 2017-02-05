@@ -56,11 +56,14 @@ public final class FalseSharing implements Runnable {
 	}
 
 	public static class PaddedAtomicLong extends AtomicLong {
+		// 下面这些变量只是为扩充PaddedAtomicLong的类大小，
+		// 使得缓存行的64个字节不能同时放下两个PaddedAtomicLong对象
 		public volatile long p1, p2, p3, p4, p5, p6 = 7L;
 	}
 
 }
 
 // 8线程
-// 没有伪共享运行时间： duration = 12945123727
-// 伪共享运行时间： duration = 25540429984
+// 没有伪共享运行时间： duration = 20126566694
+// 伪共享运行时间： duration = 33444313154
+

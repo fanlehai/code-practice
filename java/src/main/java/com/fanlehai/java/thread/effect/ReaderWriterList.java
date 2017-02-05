@@ -2,14 +2,18 @@ package com.fanlehai.java.thread.effect;
 
 import java.util.concurrent.*;
 import java.util.concurrent.locks.*;
+
+import com.fanlehai.java.util.New;
+
 import java.util.*;
 import static com.fanlehai.java.util.Print.*;
+import java.util.Collections;
 
 public class ReaderWriterList<T> {
 	private ArrayList<T> lockedList;
 	// Make the ordering fair:
 	private ReentrantReadWriteLock lock = new ReentrantReadWriteLock(true);
-
+	
 	public ReaderWriterList(int size, T initialValue) {
 		lockedList = new ArrayList<T>(Collections.nCopies(size, initialValue));
 	}
@@ -39,7 +43,7 @@ public class ReaderWriterList<T> {
 	}
 
 	public static void main(String[] args) throws Exception {
-		new ReaderWriterListTest(30, 1);
+		new ReaderWriterListTest(1, 1);
 	}
 }
 
@@ -67,8 +71,10 @@ class ReaderWriterListTest {
 	private class Reader implements Runnable {
 		public void run() {
 			try {
+				ReentrantLock reentrantLock = new ReentrantLock();
 				while (!Thread.interrupted()) {
 					for (int i = 0; i < SIZE; i++) {
+						System.out.println(Thread.currentThread().getName() +" : "+ Integer.toString(i));
 						list.get(i);
 						TimeUnit.MILLISECONDS.sleep(1);
 					}

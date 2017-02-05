@@ -11,6 +11,8 @@ public class ReverseStringTest {
 		System.out.println(new StringBuilder(string).reverse());
 
 		System.out.println(reverse(string));
+		
+		System.out.println(reverseRecursively(string));
 
 		reverseCharbuf();
 
@@ -36,12 +38,23 @@ public class ReverseStringTest {
 		if (source == null || source.isEmpty()) {
 			return source;
 		}
-		String reverse = "";
+		StringBuffer reverse = new StringBuffer();
 		for (int i = source.length() - 1; i >= 0; i--) {
-			reverse = reverse + source.charAt(i);
+			reverse.append(source.charAt(i));
 		}
 
-		return reverse;
+		return reverse.toString();
+	}
+
+	public static String reverseRecursively(String str) {
+
+		// base case to handle one char string and empty string
+		if (str.length() < 2) {
+			return str;
+		}
+
+		return reverseRecursively(str.substring(1)) + str.charAt(0);
+
 	}
 
 }
