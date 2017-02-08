@@ -13,6 +13,8 @@ class MethodSelector implements InvocationHandler {
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		if (method.getName().equals("interesting"))
 			print("Proxy detected the interesting method");
+		else
+			print(method.getName());
 		return method.invoke(proxied, args);
 	}
 }

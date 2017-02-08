@@ -1,7 +1,12 @@
 package com.fanlehai.java.enumtest;
 
 public enum SpaceShip {
-	SCOUT, CARGO, TRANSPORT, CRUISER, BATTLESHIP, MOTHERSHIP;
+	SCOUT, 
+	CARGO, 
+	TRANSPORT, 
+	CRUISER, 
+	BATTLESHIP, 
+	MOTHERSHIP;
 	public String toString() {
 		String id = name();
 		String lower = id.substring(1).toLowerCase();
@@ -13,11 +18,12 @@ public enum SpaceShip {
 			System.out.println(s);
 		}
 	}
-} /* Output:
+} 
+/* Output:
 Scout
 Cargo
 Transport
 Cruiser
 Battleship
 Mothership
-*///:~
+*/

@@ -5,7 +5,13 @@ import java.util.*;
 import com.fanlehai.java.util.*;
 
 enum CartoonCharacter implements Generator<CartoonCharacter> {
-	SLAPPY, SPANKY, PUNCHY, SILLY, BOUNCY, NUTTY, BOB;
+	SLAPPY, 
+	SPANKY, 
+	PUNCHY, 
+	SILLY, 
+	BOUNCY, 
+	NUTTY, 
+	BOB;
 	private Random rand = new Random(47);
 
 	public CartoonCharacter next() {
@@ -24,6 +30,8 @@ public class EnumImplementation {
 		for (int i = 0; i < 10; i++)
 			printNext(cc);
 	}
-} /* Output:
-BOB, PUNCHY, BOB, SPANKY, NUTTY, PUNCHY, SLAPPY, NUTTY, NUTTY, SLAPPY,
+} 
+/* 
+Output:
+BOB, PUNCHY, BOB, SPANKY, NUTTY, PUNCHY, SLAPPY, NUTTY, NUTTY, SLAPPY, 
 *///:~

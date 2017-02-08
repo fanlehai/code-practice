@@ -7,8 +7,10 @@ import static com.fanlehai.java.enumtest.Input.*;
 import static com.fanlehai.java.util.Print.*;
 
 enum Category {
-	MONEY(NICKEL, DIME, QUARTER, DOLLAR), ITEM_SELECTION(TOOTHPASTE, CHIPS, SODA,
-			SOAP), QUIT_TRANSACTION(ABORT_TRANSACTION), SHUT_DOWN(STOP);
+	MONEY(NICKEL, DIME, QUARTER, DOLLAR), 
+	ITEM_SELECTION(TOOTHPASTE, CHIPS, SODA,SOAP), 
+	QUIT_TRANSACTION(ABORT_TRANSACTION), 
+	SHUT_DOWN(STOP);
 	private Input[] values;
 
 	Category(Input... types) {

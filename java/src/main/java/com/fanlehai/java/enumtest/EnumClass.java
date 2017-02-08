@@ -27,17 +27,17 @@ public class EnumClass {
 } /* Output:
 GROUND ordinal: 0
 -1 false false
-class Shrubbery
+class com.fanlehai.java.enumtest.Shrubbery
 GROUND
 ----------------------
 CRAWLING ordinal: 1
 0 true true
-class Shrubbery
+class com.fanlehai.java.enumtest.Shrubbery
 CRAWLING
 ----------------------
 HANGING ordinal: 2
 1 false false
-class Shrubbery
+class com.fanlehai.java.enumtest.Shrubbery
 HANGING
 ----------------------
 HANGING

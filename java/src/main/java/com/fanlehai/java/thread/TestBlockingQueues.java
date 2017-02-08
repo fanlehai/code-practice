@@ -61,10 +61,10 @@ public class TestBlockingQueues {
 	}
 
 	public static void main(String[] args) {
-		test("LinkedBlockingQueue", // Unlimited size
-				new LinkedBlockingQueue<LiftOff>());
-		test("ArrayBlockingQueue", // Fixed size
-				new ArrayBlockingQueue<LiftOff>(3));
+//		test("LinkedBlockingQueue", // Unlimited size
+//				new LinkedBlockingQueue<LiftOff>());
+//		test("ArrayBlockingQueue", // Fixed size
+//				new ArrayBlockingQueue<LiftOff>(3));
 		test("SynchronousQueue", // Size of 1
 				new SynchronousQueue<LiftOff>());
 	}

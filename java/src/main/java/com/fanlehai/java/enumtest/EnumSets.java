@@ -6,8 +6,7 @@ import static com.fanlehai.java.util.Print.*;
 
 public class EnumSets {
 	public static void main(String[] args) {
-		EnumSet<AlarmPoints> points = EnumSet.noneOf(AlarmPoints.class); // Empty
-																			// set
+		EnumSet<AlarmPoints> points = EnumSet.noneOf(AlarmPoints.class); // Empty set
 		points.add(BATHROOM);
 		print(points);
 		points.addAll(EnumSet.of(STAIR1, STAIR2, KITCHEN));
@@ -17,6 +16,7 @@ public class EnumSets {
 		print(points);
 		points.removeAll(EnumSet.range(OFFICE1, OFFICE4));
 		print(points);
+		//返回AlarmPoints.class中不包含points的成员；
 		points = EnumSet.complementOf(points);
 		print(points);
 	}

@@ -3,7 +3,7 @@ package com.fanlehai.java.thread;
 
 import java.util.concurrent.*;
 
-class Car {
+class Car1 {
 	private boolean waxOn = false;
 
 	public synchronized void waxed() {
@@ -35,9 +35,9 @@ class Car {
 }
 
 class WaxOn implements Runnable {
-	private Car car;
+	private Car1 car;
 
-	public WaxOn(Car c) {
+	public WaxOn(Car1 c) {
 		car = c;
 	}
 
@@ -60,9 +60,9 @@ class WaxOn implements Runnable {
 }
 
 class WaxOff implements Runnable {
-	private Car car;
+	private Car1 car;
 
-	public WaxOff(Car c) {
+	public WaxOff(Car1 c) {
 		car = c;
 	}
 
@@ -86,7 +86,7 @@ class WaxOff implements Runnable {
 
 public class WaxOMatic {
 	public static void main(String[] args) throws Exception {
-		Car car = new Car();
+		Car1 car = new Car1();
 		ExecutorService exec = Executors.newCachedThreadPool();
 		exec.execute(new WaxOff(car));
 		exec.execute(new WaxOn(car));

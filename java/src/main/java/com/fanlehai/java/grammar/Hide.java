@@ -30,6 +30,13 @@ class Bart extends Homer {
 	}
 }
 
+class BartEx extends Bart{
+	float doh(float f) {
+		print(" Bart doh(float)");
+		return 1.0f;
+	}
+}
+
 public class Hide {
 	public static void main(String[] args) {
 		Bart b = new Bart();
@@ -39,8 +46,8 @@ public class Hide {
 		b.doh(new Milhouse());
 	}
 } /* Output:
-doh(float)
+ Bart doh(float)
 doh(char)
-doh(float)
+ Bart doh(float)
 doh(Milhouse)
 *///:~
