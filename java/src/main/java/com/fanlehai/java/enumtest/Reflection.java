@@ -47,26 +47,26 @@ public class Reflection {
 	}
 } 
 /* Output:
------ Analyzing class Explore -----
+----- Analyzing class com.fanlehai.java.enumtest.Explore -----
 Interfaces:
 Base: class java.lang.Enum
-Methods:
+Methods: 
 [compareTo, equals, getClass, getDeclaringClass, hashCode, name, notify, notifyAll, ordinal, toString, valueOf, values, wait]
 ----- Analyzing class java.lang.Enum -----
 Interfaces:
 java.lang.Comparable<E>
 interface java.io.Serializable
 Base: class java.lang.Object
-Methods:
+Methods: 
 [compareTo, equals, getClass, getDeclaringClass, hashCode, name, notify, notifyAll, ordinal, toString, valueOf, wait]
 Explore.containsAll(Enum)? true
 Explore.removeAll(Enum): [values]
 Compiled from "Reflection.java"
-final class Explore extends java.lang.Enum{
-    public static final Explore HERE;
-    public static final Explore THERE;
-    public static final Explore[] values();
-    public static Explore valueOf(java.lang.String);
-    static {};
+final class com.fanlehai.java.enumtest.Explore extends java.lang.Enum<com.fanlehai.java.enumtest.Explore> {
+  public static final com.fanlehai.java.enumtest.Explore HERE;
+  public static final com.fanlehai.java.enumtest.Explore THERE;
+  static {};
+  public static com.fanlehai.java.enumtest.Explore[] values();
+  public static com.fanlehai.java.enumtest.Explore valueOf(java.lang.String);
 }
 *///:~

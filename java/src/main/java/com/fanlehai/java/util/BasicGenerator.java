@@ -22,4 +22,4 @@ public class BasicGenerator<T> implements Generator<T> {
 	public static <T> Generator<T> create(Class<T> type) {
 		return new BasicGenerator<T>(type);
 	}
-} /// :~
+} 

@@ -6,7 +6,7 @@ public class BasicFileOutput {
 	static String file = "BasicFileOutput.out";
 
 	public static void main(String[] args) throws IOException {
-		BufferedReader in = new BufferedReader(new StringReader(BufferedInputFile.read("BasicFileOutput.java")));
+		BufferedReader in = new BufferedReader(new StringReader(BufferedInputFile.read("src/main/java/com/fanlehai/java/io/BasicFileOutput.java")));
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file)));
 		int lineCount = 1;
 		String s;
@@ -16,4 +16,4 @@ public class BasicFileOutput {
 		// Show the stored file:
 		System.out.println(BufferedInputFile.read(file));
 	}
-} /* (Execute to see output) */// :~
+}

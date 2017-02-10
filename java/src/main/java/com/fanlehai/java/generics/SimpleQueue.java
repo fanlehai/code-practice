@@ -8,6 +8,7 @@ public class SimpleQueue<T> implements Iterable<T> {
 
 	public void add(T t) {
 		storage.offer(t);
+		System.out.println(this.getClass().getName() + " : add(T t)");
 	}
 
 	public T get() {

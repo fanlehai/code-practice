@@ -26,6 +26,23 @@ public class Fill2 {
 		for (int i = 0; i < size; i++)
 			addable.add(generator.next());
 	}
+
+	public static void main(String[] args) {
+		// Adapt a Collection:
+		List<Coffee> carrier = new ArrayList<Coffee>();
+		Fill2.fill(new AddableCollectionAdapter<Coffee>(carrier), Coffee.class, 3);
+		// Helper method captures the type:
+		Fill2.fill(Adapter.collectionAdapter(carrier), Latte.class, 2);
+		for (Coffee c : carrier)
+			print(c);
+		print("----------------------");
+		// Use an adapted class:
+		AddableSimpleQueue<Coffee> coffeeQueue = new AddableSimpleQueue<Coffee>();
+		Fill2.fill(coffeeQueue, Mocha.class, 4);
+		Fill2.fill(coffeeQueue, Latte.class, 1);
+		for (Coffee c : coffeeQueue)
+			print(c);
+	}
 }
 
 // To adapt a base type, you must use composition.
@@ -54,27 +71,10 @@ class Adapter {
 class AddableSimpleQueue<T> extends SimpleQueue<T> implements Addable<T> {
 	public void add(T item) {
 		super.add(item);
+		System.out.println(this.getClass().getName() + " : add(T t)");
 	}
 }
 
-class Fill2Test {
-	public static void main(String[] args) {
-		// Adapt a Collection:
-		List<Coffee> carrier = new ArrayList<Coffee>();
-		Fill2.fill(new AddableCollectionAdapter<Coffee>(carrier), Coffee.class, 3);
-		// Helper method captures the type:
-		Fill2.fill(Adapter.collectionAdapter(carrier), Latte.class, 2);
-		for (Coffee c : carrier)
-			print(c);
-		print("----------------------");
-		// Use an adapted class:
-		AddableSimpleQueue<Coffee> coffeeQueue = new AddableSimpleQueue<Coffee>();
-		Fill2.fill(coffeeQueue, Mocha.class, 4);
-		Fill2.fill(coffeeQueue, Latte.class, 1);
-		for (Coffee c : coffeeQueue)
-			print(c);
-	}
-}
 /* Output:
 Coffee 0
 Coffee 1

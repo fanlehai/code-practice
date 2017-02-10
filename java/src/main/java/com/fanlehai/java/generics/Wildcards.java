@@ -32,6 +32,22 @@ public class Wildcards {
 		// OK, but type information has been lost:
 		Object obj = holder.get();
 	}
+	
+	static void unboundedArg(){
+		Holder raw = new Holder<Long>();
+		// Or:
+		raw = new Holder();
+		Holder<Long> qualified = new Holder<Long>();
+		Holder<?> unbounded = new Holder<Long>();
+		Holder<? extends Long> bounded = new Holder<Long>();
+		Holder<? super Long> bounded1 = new Holder<Long>();
+		Long lng = 1L;
+		unboundedArg(raw, lng);
+		unboundedArg(qualified, lng);
+		unboundedArg(unbounded, lng);
+		unboundedArg(bounded, lng);
+		unboundedArg(bounded1, lng);
+	}
 
 	static <T> T exact1(Holder<T> holder) {
 		T t = holder.get();
@@ -53,6 +69,20 @@ public class Wildcards {
 		return t;
 	}
 
+	static void wildSubtype() {
+		Holder<Long> qualified = new Holder<Long>();
+		Holder<?> unbounded = new Holder<Long>();
+		Holder<? extends Long> bounded = new Holder<Long>();
+		Long lng = 1L;
+		// Warnings: Unchecked conversion from Holder to Holder<? extends Long>
+		// Long r9 = wildSubtype(raw, lng);
+		// Unchecked method invocation: wildSubtype(Holder<? extends T>,T) is applied to (Holder,Long)
+		Long r10 = wildSubtype(qualified, lng);
+		// OK, but can only return Object:
+		Object r11 = wildSubtype(unbounded, lng);
+		Long r12 = wildSubtype(bounded, lng);
+	}
+
 	static <T> void wildSupertype(Holder<? super T> holder, T arg) {
 		holder.set(arg);
 		// T t = holder.get(); // Error:
@@ -61,15 +91,42 @@ public class Wildcards {
 		// OK, but type information has been lost:
 		Object obj = holder.get();
 	}
-	
+
+	static void wildSupertype() {
+		Holder<Long> qualified = new Holder<Long>();
+		Holder<?> unbounded = new Holder<Long>();
+		Holder<? extends Long> bounded = new Holder<Long>();
+		Long lng = 1L;
+		// Warnings: Unchecked conversion from Holder to Holder<? super Long>
+		// wildSupertype(raw, lng);
+		// Unchecked method invocation: wildSupertype(Holder<? super T>,T) is applied to (Holder,Long)
+		wildSupertype(qualified, lng);
+		// Error: wildSupertype(Holder<? super T>,T) cannot be applied to (Holder<capture of ?>,Long)
+		// wildSupertype(unbounded, lng);
+		// Error: wildSupertype(Holder<? super T>,T) cannot be applied to (Holder<capture of ? extends Long>,Long)
+		// wildSupertype(bounded, lng);
+	}
+
 	static <T> T wildSupertypeEx(Holder<? super T> holder, T arg) {
 		holder.set(arg);
 		// T t = holder.get(); // Error:
 		// Incompatible types: found Object, required T
 
 		// OK, but type information has been lost:
-		//Object obj = holder.get();
-		return (T)holder.get();
+		// Object obj = holder.get();
+		return (T) holder.get();
+	}
+
+	static void wildSupertypeEx() {
+		Holder<Long> qualified = new Holder<Long>();
+		Holder<?> unbounded = new Holder<Long>();
+		Holder<? extends Long> bounded = new Holder<Long>();
+		Long lng = 1L;
+		wildSupertypeEx(qualified, lng);
+		// The method wildSupertypeEx(Holder<? super T>, T) in the type Wildcards is not applicable for the arguments (Holder<capture#9-of ?>, Long)
+		//wildSupertypeEx(unbounded, lng);
+		// The method wildSupertypeEx(Holder<? super T>, T) in the type Wildcards is not applicable for the arguments (Holder<capture#9-of ? extends Long>, Long)
+		//wildSupertypeEx(bounded, lng);
 	}
 
 	public static void main(String[] args) {
@@ -85,57 +142,25 @@ public class Wildcards {
 		rawArgs(qualified, lng);
 		rawArgs(unbounded, lng);
 		rawArgs(bounded, lng);
-
-		unboundedArg(raw, lng);
-		unboundedArg(qualified, lng);
-		unboundedArg(unbounded, lng);
-		unboundedArg(bounded, lng);
-
-		// Warnings: Unchecked conversion from Holder to Holder<T>
-		// Object r1 = exact1(raw); 
 		
+		// Warnings: Unchecked conversion from Holder to Holder<T>
+		// Object r1 = exact1(raw);
 		// Unchecked method invocation: exact1(Holder<T>) is applied to (Holder)
 		Long r2 = exact1(qualified);
 		Object r3 = exact1(unbounded); // Must return Object
 		Long r4 = exact1(bounded);
 
 		// Warnings: Unchecked conversion from Holder to Holder<Long>
-		// Long r5 = exact2(raw, lng); 
-		
-		// Unchecked method invocation: exact2(Holder<T>,T) is applied to (Holder,Long)
+		// Long r5 = exact2(raw, lng);
+		// Unchecked method invocation: exact2(Holder<T>,T) is applied to
+		// (Holder,Long)
 		Long r6 = exact2(qualified, lng);
-		
-		// Error: exact2(Holder<T>,T) cannot be applied to (Holder<capture of ?>,Long)
-		// Long r7 = exact2(unbounded, lng); 
-		
-		// Error: exact2(Holder<T>,T) cannot be applied to (Holder<capture of ? extends Long>,Long)
-		// Long r8 = exact2(bounded, lng); 
+		// Error: exact2(Holder<T>,T) cannot be applied to (Holder<capture of
+		// ?>,Long)
+		// Long r7 = exact2(unbounded, lng);
+		// Error: exact2(Holder<T>,T) cannot be applied to (Holder<capture of ?
+		// extends Long>,Long)
+		// Long r8 = exact2(bounded, lng);
 
-		// Warnings: Unchecked conversion from Holder to Holder<? extends Long>
-		// Long r9 = wildSubtype(raw, lng); 
-		
-		// Unchecked method invocation: wildSubtype(Holder<? extends T>,T) is applied to (Holder,Long)
-		Long r10 = wildSubtype(qualified, lng);
-		// OK, but can only return Object:
-		Object r11 = wildSubtype(unbounded, lng);
-		Long r12 = wildSubtype(bounded, lng);
-
-		
-		
-		
-		// Warnings: Unchecked conversion from Holder to Holder<? super Long>
-		// wildSupertype(raw, lng); 
-		
-		// Unchecked method invocation: wildSupertype(Holder<? super T>,T) is applied to (Holder,Long)
-		wildSupertype(qualified, lng);
-		
-		// Error: wildSupertype(Holder<? super T>,T) cannot be applied to (Holder<capture of ?>,Long)
-		// wildSupertype(unbounded, lng);
-		
-		// Error: wildSupertype(Holder<? super T>,T) cannot be applied to (Holder<capture of ? extends Long>,Long)
-		// wildSupertype(bounded, lng); 
-		
-		
-		System.out.println(wildSupertypeEx(qualified,lng));
 	}
-} ///:~
+} /// :~

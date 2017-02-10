@@ -8,4 +8,4 @@ public class SelfBoundingMethods {
 	public static void main(String[] args) {
 		A a = f(new A());
 	}
-} /// :~
+}

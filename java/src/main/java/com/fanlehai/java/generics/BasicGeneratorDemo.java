@@ -7,10 +7,11 @@ public class BasicGeneratorDemo {
 		for (int i = 0; i < 5; i++)
 			System.out.println(gen.next());
 	}
-} /* Output:
+} 
+/* Output:
 CountedObject 0
 CountedObject 1
 CountedObject 2
 CountedObject 3
 CountedObject 4
-*///:~
+*/

@@ -12,4 +12,4 @@ public class Echo {
 			System.out.println(s);
 		// An empty line or Ctrl-Z terminates the program
 	}
-} /// :~
+}

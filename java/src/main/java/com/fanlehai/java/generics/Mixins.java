@@ -2,11 +2,11 @@ package com.fanlehai.java.generics;
 
 import java.util.*;
 
-interface TimeStamped {
+interface TimeStampedMix {
 	long getStamp();
 }
 
-class TimeStampedImp implements TimeStamped {
+class TimeStampedImp implements TimeStampedMix {
 	private final long timeStamp;
 
 	public TimeStampedImp() {
@@ -18,11 +18,11 @@ class TimeStampedImp implements TimeStamped {
 	}
 }
 
-interface SerialNumbered1 {
+interface SerialNumberedMix {
 	long getSerialNumber();
 }
 
-class SerialNumberedImp implements SerialNumbered1 {
+class SerialNumberedImp implements SerialNumberedMix {
 	private static long counter = 1;
 	private final long serialNumber = counter++;
 
@@ -31,13 +31,13 @@ class SerialNumberedImp implements SerialNumbered1 {
 	}
 }
 
-interface Basic1 {
+interface BasicMix {
 	public void set(String val);
 
 	public String get();
 }
 
-class BasicImp implements Basic1 {
+class BasicImp implements BasicMix {
 	private String value;
 
 	public void set(String val) {
@@ -49,9 +49,9 @@ class BasicImp implements Basic1 {
 	}
 }
 
-class Mixin extends BasicImp implements TimeStamped, SerialNumbered1 {
-	private TimeStamped timeStamp = new TimeStampedImp();
-	private SerialNumbered1 serialNumber = new SerialNumberedImp();
+class Mixin extends BasicImp implements TimeStampedMix, SerialNumberedMix {
+	private TimeStampedMix timeStamp = new TimeStampedImp();
+	private SerialNumberedMix serialNumber = new SerialNumberedImp();
 
 	public long getStamp() {
 		return timeStamp.getStamp();

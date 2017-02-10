@@ -8,6 +8,9 @@ import java.io.*;
 import java.util.*;
 import static com.fanlehai.java.util.Print.*;
 
+/*
+ * 命令行参数：src/main/java/com/fanlehai/java/nio/ZipCompress.java
+ */
 public class ZipCompress {
 	public static void main(String[] args) throws IOException {
 		FileOutputStream f = new FileOutputStream("test.zip");
@@ -52,7 +55,12 @@ public class ZipCompress {
 			ZipEntry ze2 = (ZipEntry) e.nextElement();
 			print("File: " + ze2);
 			// ... and extract the data as before
+			System.out.println("===================================");
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(ze2.toString()));
+			int x;
+			while ((x = bufferedReader.read()) != -1)
+				System.out.write(x);
 		}
 		/* if(args.length == 1) */
 	}
-} /* (Execute to see output) */// :~
+}

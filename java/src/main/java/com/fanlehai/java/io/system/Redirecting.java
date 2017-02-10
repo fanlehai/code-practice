@@ -18,4 +18,4 @@ public class Redirecting {
 		out.close(); // Remember this!
 		System.setOut(console);
 	}
-} /// :~
+}

@@ -77,6 +77,7 @@ class Square extends Shape {
 class Line extends Shape {
 	private static int color = RED;
 
+	// 增加这个和下面两个方法，static的color的值才能把真正序列化，否则恢复的时候color是初始值
 	public static void serializeStaticState(ObjectOutputStream os) throws IOException {
 		os.writeInt(color);
 	}

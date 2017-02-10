@@ -1,5 +1,7 @@
 package com.fanlehai.java.generics;
 
+import java.util.ArrayList;
+
 class FixedSizeStack<T> {
 	private int index = 0;
 	private Object[] storage;
@@ -14,6 +16,9 @@ class FixedSizeStack<T> {
 
 	@SuppressWarnings("unchecked")
 	public T pop() {
+		if (index-1<0) {
+			return null;
+		}
 		return  (T) storage[--index];
 	}
 }
@@ -31,6 +36,11 @@ public class GenericCast {
 			System.out.println(strings.pop().getClass().getName());
 		}
 	}
-} /* Output:
-J I H G F E D C B A
-*///:~
+} 
+/* Output:
+J java.lang.String
+H java.lang.String
+F java.lang.String
+D java.lang.String
+B java.lang.String
+*/

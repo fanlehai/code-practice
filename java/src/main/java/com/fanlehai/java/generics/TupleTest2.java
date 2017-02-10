@@ -32,10 +32,11 @@ public class TupleTest2 {
 		System.out.println(h());
 		System.out.println(k());
 	}
-} /* Output: (80% match)
+} 
+/* Output: (80% match)
 (hi, 47)
 (hi, 47)
-(Amphibian@7d772e, hi, 47)
-(Vehicle@757aef, Amphibian@d9f9c3, hi, 47)
-(Vehicle@1a46e30, Amphibian@3e25a5, hi, 47, 11.1)
+(com.fanlehai.java.generics.Amphibian@7852e922, hi, 47)
+(com.fanlehai.java.generics.Vehicle@4e25154f, com.fanlehai.java.generics.Amphibian@70dea4e, hi, 47)
+(com.fanlehai.java.generics.Vehicle@5c647e05, com.fanlehai.java.generics.Amphibian@33909752, hi, 47, 11.1)
 *///:~

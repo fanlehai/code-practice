@@ -39,11 +39,13 @@ class MixinProxy implements InvocationHandler {
 
 public class DynamicProxyMixin {
 	public static void main(String[] args) {
-		Object mixin = MixinProxy.newInstance(tuple(new BasicImp(), Basic.class),
-				tuple(new TimeStampedImp(), TimeStamped.class), tuple(new SerialNumberedImp(), SerialNumbered.class));
-		Basic b = (Basic) mixin;
-		TimeStamped t = (TimeStamped) mixin;
-		SerialNumbered s = (SerialNumbered) mixin;
+		Object mixin = MixinProxy.newInstance(
+				tuple(new BasicImp(), BasicMix.class),
+				tuple(new TimeStampedImp(), TimeStampedMix.class), 
+				tuple(new SerialNumberedImp(), SerialNumberedMix.class));
+		BasicMix b = (BasicMix) mixin;
+		TimeStampedMix t = (TimeStampedMix) mixin;
+		SerialNumberedMix s = (SerialNumberedMix) mixin;
 		b.set("Hello");
 		System.out.println(b.get());
 		System.out.println(t.getStamp());

@@ -16,6 +16,7 @@ public class FileLocking {
 		}
 		fos.close();
 	}
-} /*
-	 * Output: Locked File Released Lock
-	 */// :~
+} 
+/*
+Output: Locked File Released Lock
+*/
