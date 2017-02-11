@@ -28,6 +28,7 @@ public class LockingMappedFiles {
 			this.end = end;
 			mbb.limit(end);
 			mbb.position(start);
+			// 用mbb创建一个新的buffer，新的buffer包含mbb一部分内容的buffer，对mbb的改动，同时新buffer也会被改动
 			buff = mbb.slice();
 			start();
 		}

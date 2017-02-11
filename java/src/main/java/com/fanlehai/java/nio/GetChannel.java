@@ -14,11 +14,13 @@ public class GetChannel {
 		FileChannel fc = new FileOutputStream("data.txt").getChannel();
 		fc.write(ByteBuffer.wrap("Some text ".getBytes()));
 		fc.close();
+		
 		// Add to the end of the file:
 		fc = new RandomAccessFile("data.txt", "rw").getChannel();
 		fc.position(fc.size()); // Move to the end
 		fc.write(ByteBuffer.wrap("Some more".getBytes()));
 		fc.close();
+		
 		// Read the file:
 		fc = new FileInputStream("data.txt").getChannel();
 		ByteBuffer buff = ByteBuffer.allocate(BSIZE);
