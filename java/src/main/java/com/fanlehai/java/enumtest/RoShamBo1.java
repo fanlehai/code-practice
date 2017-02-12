@@ -106,23 +106,4 @@ public class RoShamBo1 {
 	}
 } /* Output:	
 Rock vs. Rock: DRAW
-Paper vs. Rock: WIN
-Paper vs. Rock: WIN
-Paper vs. Rock: WIN
-Scissors vs. Paper: WIN
-Scissors vs. Scissors: DRAW
-Scissors vs. Paper: WIN
-Rock vs. Paper: LOSE
-Paper vs. Paper: DRAW
-Rock vs. Paper: LOSE
-Paper vs. Scissors: LOSE
-Paper vs. Scissors: LOSE
-Rock vs. Scissors: WIN
-Rock vs. Paper: LOSE
-Paper vs. Rock: WIN
-Scissors vs. Paper: WIN
-Paper vs. Scissors: LOSE
-Paper vs. Scissors: LOSE
-Paper vs. Scissors: LOSE
-Paper vs. Scissors: LOSE
 *///:~

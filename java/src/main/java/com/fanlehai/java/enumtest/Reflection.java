@@ -6,14 +6,9 @@ import com.fanlehai.java.util.*;
 import static com.fanlehai.java.util.Print.*;
 
 /*
- *
  * 在eclipse中运行，需要配置下面信息:
  * Run Configurations --> Arguments --> Working directory --> Other  -->  ${workspace_loc:java/target/classes}
- * 
- * 
  */
-
-
 
 enum Explore {
 	HERE, THERE

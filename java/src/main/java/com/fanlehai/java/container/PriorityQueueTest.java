@@ -49,7 +49,6 @@ public class PriorityQueueTest {
 
 	// 匿名Comparator实现
 	public static Comparator<Customer> idComparator = new Comparator<Customer>() {
-
 		@Override
 		public int compare(Customer c1, Customer c2) {
 			return (int) (c1.getId() - c2.getId());

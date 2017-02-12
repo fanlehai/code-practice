@@ -3,6 +3,10 @@ package com.fanlehai.java.container;
 import java.util.*;
 import static com.fanlehai.java.util.Print.*;
 
+class ClsHashTest{
+	
+}
+
 public class SortedSetDemo {
 	public static void main(String[] args) {
 		SortedSet<String> sortedSet = new TreeSet<String>();
@@ -26,6 +30,7 @@ public class SortedSetDemo {
 		print(sortedSet.subSet(low, high));
 		print(sortedSet.headSet(high));
 		print(sortedSet.tailSet(low));
+		
 	}
 } /* Output:
 [eight, five, four, one, seven, six, three, two]

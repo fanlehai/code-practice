@@ -6,7 +6,7 @@ import com.fanlehai.java.util.*;
 
 
 /*
- * 命令行参数：src/main/java/com/fanlehai/java/regex/JGrep.java "\\b[Ssct]\\w+
+ * 命令行参数：src/main/java/com/fanlehai/java/regex/JGrep.java \\b[Ssct]\\w+
  * 
  * 
  */

@@ -3,9 +3,10 @@ package com.fanlehai.java.grammar;
 import java.util.*;
 import static com.fanlehai.java.util.Print.*;
 
+
 class Value {
 	int i; // Package access
-
+	
 	public Value(int i) {
 		this.i = i;
 	}

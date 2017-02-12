@@ -201,7 +201,7 @@ public class BaseTypeConvert {
 		long num3 = Long.valueOf(number);
 
 	}
-
+	@SuppressWarnings( "unuse" )
 	public static void IntToInterge() {
 		int number = 123456;
 		Integer num1 = Integer.valueOf(number);

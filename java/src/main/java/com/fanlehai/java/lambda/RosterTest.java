@@ -42,6 +42,18 @@ public class RosterTest {
 	interface CheckPerson {
 		boolean test(Person p);
 	}
+	
+	interface CheckPersonEx{
+		boolean test();
+	}
+	
+	public static void printPerson(List<Person> roster, CheckPersonEx p) {
+		for (Person person : roster) {
+			if (p.test()) {
+				person.printPerson();
+			}
+		}
+	}
 
 	// Approach 1: Create Methods that Search for Persons that Match One Characteristic
 	public static void printPersonsOlderThan(List<Person> roster, int age) {
@@ -118,6 +130,8 @@ public class RosterTest {
 		for (Person p : roster) {
 			p.printPerson();
 		}
+		System.out.println("------------------------------");
+		printPerson(roster,()->10>0);
 
 		// 【Approach 1】: Create Methods that Search for Persons that Match One Characteristic
 		System.out.println("Persons older than 20:");
