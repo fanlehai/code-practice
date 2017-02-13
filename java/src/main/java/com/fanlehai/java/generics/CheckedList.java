@@ -7,7 +7,6 @@ class Cat extends Pet {
 }
 
 class Dog extends Pet {
-
 }
 
 public class CheckedList {
@@ -18,10 +17,12 @@ public class CheckedList {
 
 	public static void main(String[] args) {
 		List<Dog> dogs1 = new ArrayList<Dog>();
-		oldStyleMethod(dogs1); // Quietly accepts a Cat
+		// Quietly accepts a Cat
+		oldStyleMethod(dogs1); 
 		List<Dog> dogs2 = Collections.checkedList(new ArrayList<Dog>(), Dog.class);
 		try {
-			oldStyleMethod(dogs2); // Throws an exception
+			// Throws an exception
+			oldStyleMethod(dogs2); 
 		} catch (Exception e) {
 			//System.out.println(e);
 			e.printStackTrace();
@@ -30,6 +31,7 @@ public class CheckedList {
 		List<Pet> pets = Collections.checkedList(new ArrayList<Pet>(), Pet.class);
 		pets.add(new Dog());
 		pets.add(new Cat());
+		
 	}
 } 
 /*

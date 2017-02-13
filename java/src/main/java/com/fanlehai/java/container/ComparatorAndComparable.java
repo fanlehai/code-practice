@@ -11,7 +11,7 @@ class Dogor {
 	}
 }
 
-class SizeComparator implements Comparator<Dogor> {
+class DogSizeComparator implements Comparator<Dogor> {
 	@Override
 	public int compare(Dogor d1, Dogor d2) {
 		return d1.size - d2.size;
@@ -34,7 +34,7 @@ class Dog implements Comparable<Dog> {
 public class ComparatorAndComparable {
 	public static void main(String[] args) {
 		// comparator
-		TreeSet<Dogor> d = new TreeSet<Dogor>(new SizeComparator()); // pass
+		TreeSet<Dogor> d = new TreeSet<Dogor>(new DogSizeComparator()); // pass
 																		// comparator
 		d.add(new Dogor(1));
 		d.add(new Dogor(2));

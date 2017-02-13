@@ -4,7 +4,7 @@ package com.fanlehai.java.util;
 
 import java.util.*;
 
-public class New {
+public class CreateObject {
 	public static <K, V> Map<K, V> map() {
 		return new HashMap<K, V>();
 	}
@@ -27,10 +27,10 @@ public class New {
 
 	// Examples:
 	public static void main(String[] args) {
-		Map<String, List<String>> sls = New.map();
-		List<String> ls = New.list();
-		LinkedList<String> lls = New.lList();
-		Set<String> ss = New.set();
-		Queue<String> qs = New.queue();
+		Map<String, List<String>> sls = CreateObject.map();
+		List<String> ls = CreateObject.list();
+		LinkedList<String> lls = CreateObject.lList();
+		Set<String> ss = CreateObject.set();
+		Queue<String> qs = CreateObject.queue();
 	}
 } /// :~

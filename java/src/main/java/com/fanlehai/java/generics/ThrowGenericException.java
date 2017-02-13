@@ -32,6 +32,7 @@ class Processor1 implements Processor<String, Failure1> {
 }
 
 class Failure2 extends Exception {
+
 }
 
 class Processor2 implements Processor<Integer, Failure2> {

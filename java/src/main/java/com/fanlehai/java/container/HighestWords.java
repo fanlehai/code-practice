@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 public class HighestWords {
 
 	public static void main(String args[]) {
-		Map<String, Integer> wordMap = buildWordMap("C:/temp/words.txt");
+		Map<String, Integer> wordMap = buildWordMap("src/main/java/com/fanlehai/java/container/HighestWords.java");
 		List<Entry<String, Integer>> list = sortByValueInDecreasingOrder(wordMap);
 		System.out.println("List of repeated word from file and their count");
 		for (Map.Entry<String, Integer> entry : list) {
@@ -32,10 +32,9 @@ public class HighestWords {
 		// Using diamond operator for clean code
 		Map<String, Integer> wordMap = new HashMap<>();
 		// Using try-with-resource statement for automatic resource management
-		try (
-				FileInputStream fis = new FileInputStream(fileName);
-				DataInputStream dis = new DataInputStream(fis);
-				BufferedReader br = new BufferedReader(new InputStreamReader(dis))) {
+		try (FileInputStream fis = new FileInputStream(fileName);
+				//DataInputStream dis = new DataInputStream(fis);
+				BufferedReader br = new BufferedReader(new InputStreamReader(fis))) {
 			// words are separated by whitespace
 			Pattern pattern = Pattern.compile("\\s+");
 			String line = null;
@@ -61,11 +60,13 @@ public class HighestWords {
 	public static List<Entry<String, Integer>> sortByValueInDecreasingOrder(Map<String, Integer> wordMap) {
 		Set<Entry<String, Integer>> entries = wordMap.entrySet();
 		List<Entry<String, Integer>> list = new ArrayList<>(entries);
-		Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
-			public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-				return (o2.getValue()).compareTo(o1.getValue());
-			}
-		});
+//		Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+//			public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+//				return (o2.getValue()).compareTo(o1.getValue());
+//			}
+//		});
+		// 下面用lambda方法实现与上面注释掉的5行代码，相同意思
+		Collections.sort(list,(o1,o2)-> o1.getValue().compareTo(o2.getValue()));
 		return list;
 	}
 

@@ -8,6 +8,6 @@ public class ExplicitTypeSpecification {
 	}
 
 	public static void main(String[] args) {
-		f(New.<Person, List<Pet>>map());
+		f(CreateObject.<Person, List<Pet>>map());
 	}
 } /// :~

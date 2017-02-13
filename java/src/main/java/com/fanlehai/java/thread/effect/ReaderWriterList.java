@@ -3,7 +3,7 @@ package com.fanlehai.java.thread.effect;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.*;
 
-import com.fanlehai.java.util.New;
+import com.fanlehai.java.util.CreateObject;
 
 import java.util.*;
 import static com.fanlehai.java.util.Print.*;
