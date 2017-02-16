@@ -29,8 +29,13 @@ public class ClassTypeCapture<T> {
 		System.out.println(ctt2.f(new Building()));
 		System.out.println(ctt2.f(new House()));
 		System.out.println(ctt2.h(new House()));
+		String string = "22";
+		string.intern();
 	}
-} /* Output:
+} 
+
+
+/* Output:
 true
 true
 false
