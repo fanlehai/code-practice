@@ -1,0 +1,17 @@
+{
+    "name": "Alice",
+    "age": 20,
+    "address": {
+        "streetAddress": "100 Wall Street",
+        "city": "New York"
+    },
+    "phoneNumber": [
+        {
+            "type": "home",
+            "number": "212-333-1111"
+        },{
+            "type": "fax",
+            "number": "646-444-2222"
+        }
+    ]
+}

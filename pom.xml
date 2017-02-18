@@ -13,6 +13,7 @@
   <modules>
     <module>hadoop</module>
     <module>java</module>
+	<module>design_pattern</module>
   </modules>
   
   <properties>
