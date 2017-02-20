@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /*
- * 命令行参数：-XX:+HeapDumpOnOutOfMemoryError 
+ * 命令行参数：-XX:+HeapDumpOnOutOfMemoryError -Xmx100m
  */
 
 public class CreateOom {
@@ -16,8 +16,7 @@ public class CreateOom {
 	public static void main(String[] args) throws InterruptedException {
 		List<String> list = new ArrayList<String>();
 		while (1 < 2) {
-			list.add("OutOfMemoryError soon");
-			TimeUnit.MICROSECONDS.sleep(1000);
+			list.add("OutOfMemoryError soon".intern());
 		}
 
 	}
