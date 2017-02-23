@@ -6,8 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import com.fanlehai.java.util.CreateObject;
-
 class DataView<T> implements Iterable<T>{
 	List<T> list = new LinkedList<>();
 	@Override
@@ -134,13 +132,13 @@ class DataViewCol<T> implements Collection<T>{
 public class ForEachTest {
 
 	public static void main(String[] args) {
-//		DataView<String> dataView = new DataView<>();
-//		dataView.add("1");
-//		dataView.add("2");
-//		dataView.add("3");
-//		for(String string : dataView){
-//			System.out.println(string);
-//		}
+		DataView<String> dataView = new DataView<>();
+		dataView.add("1");
+		dataView.add("2");
+		dataView.add("3");
+		for(String string : dataView){
+			System.out.println(string);
+		}
 		
 		DataViewCol<String> dataViewCol = new DataViewCol<>();
 		dataViewCol.add("a");
