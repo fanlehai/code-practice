@@ -85,7 +85,7 @@ public class LocalClassExample {
                 System.out.println("Bye bye");
             }*/
         }
-        EnglishGoodbye.sayGoodbye();
+//        EnglishGoodbye.sayGoodbye();
     }
 
 	public static void main(String... args) {
