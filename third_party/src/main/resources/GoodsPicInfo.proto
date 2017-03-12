@@ -1,0 +1,12 @@
+syntax = "proto3";
+option java_package = "protobuf.clazz"; 
+option java_outer_classname = "GoodsPicInfo";
+ 
+message PicInfo { 
+   int32 ID = 1; 
+   int64 GoodID = 2;        
+   string Url = 3; 
+   string Guid = 4; 
+   string Type = 5; 
+   int32 Order = 6; 
+}
